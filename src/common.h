@@ -10,6 +10,17 @@
 #include <string.h>
 #include <errno.h>
 
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+
+int stdscr_maxy, stdscr_maxx;
+
+
+char *main_menu_choices[] = {
+	"Start Game",
+	"About",
+	"Quit",
+};
+
 int stdscr_maxy, stdscr_maxx;
 
 void
