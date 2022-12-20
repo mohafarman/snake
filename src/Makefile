@@ -5,5 +5,6 @@ LDLIBS=-lmenu -lncurses -lform
 COMPILE=$(CC) $(CFLAGS) $(LDLIBS)
 
 PROGRAM: $(PROGRAM).c
-	$(COMPILE) snake.c -o ../build/./a.out
-	@../build/./a.out
+	@mkdir ../build
+	$(COMPILE) $(PROGRAM).c -o ../build/./$(PROGRAM)
+	@../build/./$(PROGRAM)
