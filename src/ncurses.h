@@ -2,6 +2,14 @@
 #define __NCURSES_H__
 #include "common.h"
 
+typedef struct menu_s {
+	WINDOW *window;
+	MENU *menu;
+	ITEM **items;
+	ITEM *selected_item;
+	int win_height, win_width;
+} menu_s;
+
 // TODO: Implement linked list as a way of handling the
 // growing (and shortening) snake
 
@@ -31,6 +39,32 @@ WINDOW
 
 	wrefresh(local_win);
 	return local_win;
+}
+
+
+menu_s
+*init_menu(menu_s *menu, char *local_menu_choices[], int num_choices) {
+	menu->items = (ITEM **)calloc(num_choices + 1, sizeof (ITEM *));
+
+	for (int i = 0; i < num_choices; i++) {
+		menu->items[i] = new_item(local_menu_choices[i], "");
+	}
+	menu->items[num_choices] = (ITEM *)NULL;
+
+	menu->menu = new_menu((ITEM **)menu->items);
+
+	menu->window = create_new_win(stdscr_maxy / 2, stdscr_maxx / 2,
+			MAIN_MENU_WIN_Y, MAIN_MENU_WIN_X);
+	getmaxyx(menu->window, menu->win_height, menu->win_width);
+
+	set_menu_win(menu->menu, menu->window);
+	set_menu_sub(menu->menu, derwin(menu->window, 6, 38, 2, 1));
+
+	set_menu_mark(menu->menu, " * ");
+
+	post_menu(menu->menu);
+
+	return menu;
 }
 
 MENU
