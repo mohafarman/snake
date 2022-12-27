@@ -5,6 +5,6 @@ LDLIBS=-lmenu -lncurses -lform
 COMPILE=$(CC) $(CFLAGS) $(LDLIBS)
 
 PROGRAM: $(PROGRAM).c
-	@mkdir ../build
+	#@mkdir ../build
 	$(COMPILE) $(PROGRAM).c -o ../build/./$(PROGRAM)
 	@../build/./$(PROGRAM)
